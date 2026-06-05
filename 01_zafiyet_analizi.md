@@ -33,6 +33,7 @@ Tercüman / Dedektif: Python tabanlı "İSÜ SecOps" tespit simülatörümüz.
 
 Tutuklama: Sistem bu 4096 Bayt ve 1024 Port sınırlarını aşan bir trafik gördüğünde anında kırmızı alarm üretir ve kaynağı engeller.
 
+<img width="1301" height="794" alt="Ekran Resmi 2026-06-05 18 23 09" src="https://github.com/user-attachments/assets/5f4815c9-8973-4396-93b8-c91f7b955901" />
 
 
 GÖRSELİN AÇIKLAMASI 
