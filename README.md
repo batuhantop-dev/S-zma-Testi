@@ -1,78 +1,31 @@
-# ISU SecOps: CVE-2026-1988 Zafiyet Simülasyonu ve Tespit Paneli
+⚡ ISU SecOps — CVE-2026-1988Eğitim Amaçlı Zafiyet Simülasyon ve Tespit LaboratuvarıZero-Click RCE via Bluetooth GATT & XNU Kernel UAFCVSS 9.8 — CriticalPlaintext┌─────────────────────────────────────────────────────────────────┐
+│ [Uzak Saldırgan] → Malformed GATT Paketi Gönderimi (>4096 Bayt) │
+│ → bluetoothd OOB Write (Sandbox Bypass)                         │
+│ → Mach IPC Mesajları (>1024 Port) → Kernel UAF (XNU)            │
+│ → 🚨 ISU SecOps Tarafından Tespit Edildi & Engellendi!          │
+└─────────────────────────────────────────────────────────────────┘
+⚠️ YASAL UYARI / DISCLAIMER🔴 Bu proje yalnızca EĞİTİM, ARAŞTIRMA ve SAVUNMA amaçlıdır.Buradaki kodlar gerçek sistemlere yönelik bir saldırı (payload) içermez, saldırı trafiğini simüle eder.Yetkisiz sistemlere yönelik ağ taramaları ve zafiyet istismarı Türk Ceza Kanunu madde 243-245 kapsamında suçtur.İstinye Üniversitesi (İSÜ) Sızma Testi final projesi kapsamında geliştirilmiştir. Tüm testler localhost üzerinde, izole ortamda yapılmalıdır.📋 CVE BilgileriAlanDetayCVE IDCVE-2026-1988CVSS v3.19.8 / Critical (AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)TürOut-of-Bounds Write & Use-After-Free (UAF)Kimlik DoğrulamaGerekmez (Pre-Auth / Zero-Click)Etkilenen SistemleriOS 19 ve öncesi, macOS Sequoia (15.x) ÖncesiYamalı SürümleriOS 20+, macOS Sequoia+ (kalloc.mach_port izolasyonu)Saldırı VektörüBluetooth (bluetoothd) ve XNU IPC Portları📁 Proje YapısıPlaintextISU_SecOps_CVE-2026-1988/
+ISU_SecOps_CVE-2026-1988/
+│
+├── 📂 saldiri/               # 🗡️ Saldırı Simülasyon Araçları
+├── 📂 scanner/               # 🔎 Ağ Tarama Araçları
+├── 📂 website/               # 🛡️ ISU SecOps Web Paneli (app.py burada)
+│
+├── 📄 .gitignore             # Git ayarları
+├── 📄 Saldiri.md             # Zafiyetin olay yeri analizi ve risk matrisi
+├── 📄 readme.md              # Bu vitrin dosyası
+├── 📄 requirements.txt       # Python bağımlılıkları
+├── 📄 roadmap.md             # Proje geliştirme yol haritası
+└── 📄 scanner.sh             # Başlatıcı script
+🚀 Hızlı BaşlangıçGereksinimlerAraçSürümAmaçPython3.8+Tespit simülatörünü çalıştırmapipGüncelPaket yönetimiFlask2.0+Web paneli altyapısıSeçenek 1: Yerel Bilgisayarda Çalıştırma (Localhost)Bash# 1. Depoyu klonlayın ve klasöre girin
+git clone https://github.com/KULLANICI_ADIN/ISU_SecOps_CVE-2026-1988.git
+cd ISU_SecOps_CVE-2026-1988/codebase
 
-İstinye Üniversitesi Sızma Testi final projesi kapsamında geliştirilmiş, **CVE-2026-1988 (iOS Zero-Click RCE & XNU Kernel UAF)** zafiyet zincirini ağ seviyesinde tespit etmeyi amaçlayan simülasyon ve analiz projesi.
+# 2. Gerekli kütüphaneleri yükleyin
+pip install -r ../requirements.txt
+# Veya doğrudan: pip install flask
 
-> [!WARNING]
-**Yasal Uyarı:** Bu proje tamamen eğitim ve savunma amaçlıdır. Gerçek sistemlere yönelik zararlı bir payload içermez; yalnızca saldırı mantığını simüle eder ve ağ üzerindeki anormalliklerin tespit mekanizmalarını araştırır.
-> 
-
-## Proje Nedir?
-
-Bu proje, modern siber casusluk yazılımlarının iOS cihazları ele geçirmek için kullandığı "Kapalı Bahçe" (Walled Garden) mimarisini aşan karmaşık bir zafiyeti (CVE-2026-1988) inceler. Ancak bu karmaşık yapıyı hacklemek yerine, **"Bir siber güvenlik dedektifi bu saldırıyı ağda nasıl yakalar?"** sorusuna odaklanır.
-
-Proje kapsamında, bu zafiyeti ağ üzerinde simüle eden ve anormal trafikleri anında yakalayan **İSÜ SecOps Web Paneli** geliştirilmiştir.
-
-## Dedektif Mantığı (Nasıl Çalışır?)
-
-Saldırının karmaşık C/C++ bellek manipülasyonları yerine, ağda bıraktığı izlere odaklanıyoruz:
-
-- **Olay Yeri:** Ağ arayüzü ve çekirdek (Kernel) port iletişimleri.
-- **Şüpheli Davranış 1 (OOB Write):** Gelen Bluetooth GATT paketinin **4096 Bayt** sınırını aşması.
-- **Şüpheli Davranış 2 (Kernel UAF):** İşletim sistemine tek seferde **1024'ten fazla** Mach Port isteği gönderilmesi.
-- **Aksiyon:** Sistem bu anormal sınır aşımlarını yakaladığında, "ISU SecOps" paneli üzerinden canlı güvenlik alarmları (Alert) üretir.
-
-## Proje Yapısı (Bölüm Bölüm Yaklaşım)
-
-Karmaşıklıktan uzak, anlaşılır klasör mimarisi:
-
-Plaintext
-
-```
-├── README.md                 # Projenin vitrini ve özeti (Bu dosya)
-├── 01_zafiyet_analizi.md     # Açığın dedektif mantığıyla adım adım incelenmesi
-└── app.py                    # Simülasyonu ve İSÜ SecOps web panelini çalıştıran kod
-```
-
-## Kurulum ve Çalıştırma
-
-Sistemi kendi bilgisayarınızda (localhost) test etmek için aşağıdaki adımları izleyebilirsiniz. Sistem **Python 3.x** gerektirir.
-
-**1. Gerekli kütüphaneyi kurun:**
-
-Bash
-
-```
-pip install flask
-```
-
-**2. SecOps panelini başlatın:**
-
-Bash
-
-```
+# 3. İSÜ SecOps Panelini başlatın
 python app.py
-```
-
-**3. Paneli görüntüleyin:**
-
-- Tarayıcınızda `http://127.0.0.1:5000` adresine gidin ve canlı trafik simülasyonunu izleyin.
-
-## Python Kurulumu Yoksa: Google Colab İle Çalıştırma
-
-Eğer sisteminizde Python veya Flask kurulu değilse, projeyi hiçbir kurulum yapmadan bulut üzerinden **Google Colab** ile anında test edebilirsiniz:
-
-1. Google Colab'i açın ve yeni bir not defteri oluşturun.
-2. Depodaki `app.py` kodunun tamamını kopyalayıp hücreye yapıştırın.
-3. Kodun **en üstüne** şu kütüphaneyi ekleyin:
-   ```python
-   from google.colab import output`
-
-1. Kodun **en altındaki** çalıştırma bloğunu (`if __name__ == '__main__':` kısmı) silip **yerine** şunu yapıştırın:Python
-    
-    ```
-    if __name__ == '__main__':
-        output.serve_kernel_port_as_iframe(5000, height=800)
-        app.run(port=5000)
-    ```
-    
-2. Hücreyi çalıştırın (Play butonu). İSÜ SecOps Paneli yeni bir sekmeye gerek kalmadan doğrudan kod hücresinin altında açılacaktır!
+# → Tarayıcınızda açın: http://127.0.0.1:5000
+Seçenek 2: Kurulumsuz Bulut Ortamı (Google Colab)Eğer sisteminizde Python kurulu değilse, projeyi tarayıcı üzerinden anında test edebilirsiniz:Google Colab'de yeni bir not defteri açın.app.py kodunu yapıştırın.Kodun en altına from google.colab import output ve output.serve_kernel_port_as_iframe(5000, height=800) satırlarını ekleyerek çalıştırın.🛡️ Tehdit Avcılığı ve Savunma Rehberi (Remediation)Ağ yöneticileri ve SecOps ekipleri için acil durum eylem planı:1. Ağ Seviyesinde Tespit (ISU SecOps Kuralları)GATT Sınır Kontrolü: Bluetooth üzerinden gelen Service Discovery paketleri sürekli izlenmeli. 4096 Bayt sınırını aşan malformed (bozuk) paketler anında Drop (Düşür) edilmelidir.Mach Port Anomalileri: İşletim sisteminde saniyeler içinde 1024'ten fazla IPC Port (Kapı) isteği yapan işlemler Kernel Panic yaratmadan önce "Watchdog" tarafından Terminate (Sonlandır) edilmelidir.2. Kalıcı İyileştirme (Patching)Tüm Apple mobil ve masaüstü cihazları ivedilikle iOS 20 ve macOS Sequoia (veya üzeri) sürümlerine güncellenmelidir. Yeni sürümlerde kalloc_type ve izole kalloc.mach_port heap mimarisi ile bu UAF açığı donanımsal olarak (PAC) engellenmiştir.📚 ReferanslarKaynakOdak NoktasıApple Security UpdatesOrijinal XNU Yama BildirimiProject Zero BlogZero-Click İstismar AnaliziZDI (Zero Day Initiative)Bluetooth OOB Write Raporları📄 LisansBu proje İstinye Üniversitesi akademik gereksinimleri doğrultusunda hazırlanmış olup, tamamen eğitim odaklıdır.
