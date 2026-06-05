@@ -3,13 +3,25 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="921913f1-862f-4592-9526-5cf832484bcb" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/roadmap.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/saldiri/01_dos_exploit.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/scanner.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scanner/port_scanner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/01_zafiyet_analizi.md" beforeDir="false" afterPath="$PROJECT_DIR$/Saldiri.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +71,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/website" />
+      <recent name="$PROJECT_DIR$/saldiri" />
+    </key>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="921913f1-862f-4592-9526-5cf832484bcb" name="Changes" comment="" />
@@ -66,7 +85,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1780681601397</updated>
-      <workItem from="1780681602974" duration="313000" />
+      <workItem from="1780681602974" duration="1791000" />
     </task>
     <servers />
   </component>
