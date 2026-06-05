@@ -42,9 +42,6 @@ Zafiyetli cihazları bulmak ve sistemi test etmek için sahte (mock) betiklerin 
 
 scanner.sh: Projeyi başlatan ana terminal arayüzü (CLI).
 
-scanner/port_scanner.py: Yerel ağdaki iOS/macOS cihazların sürüm keşfi.
-
-saldiri/01_dos_exploit.py: İSÜ SecOps paneline düşecek zararlı paketlerin terminal simülasyonu.
 
 🟢 Faz 6 — Savunma & Düzeltme Önerileri (Remediation)
 Yapılacaklar
@@ -56,25 +53,6 @@ Geçici Çözüm (Mitigation): Güvenlik duvarlarında 4096B limitinin kural ola
 
 Kalıcı Çözüm (Patch): Apple cihazların iOS 20 ve macOS Sequoia üstüne güncellenmesinin tavsiye edilmesi (kalloc.mach_port izolasyonu).
 
-📁 Proje Yapısı (Son Durum)
-Plaintext
-ISU_SecOps_CVE-2026-1988/
-│
-├── 📂 saldiri/                 # 🗡️ Saldırı Simülasyon Araçları
-│   └── 01_dos_exploit.py       
-│
-├── 📂 scanner/                 # 🔎 Ağ Tarama Araçları
-│   └── port_scanner.py         
-│
-├── 📂 website/                 # 🛡️ ISU SecOps Web Paneli
-│   └── app.py                  
-│
-├── 📄 .gitignore               # Git dışlama kuralları
-├── 📄 Saldiri.md               # CVE araştırma ve analiz raporu
-├── 📄 readme.md                # Proje vitrini
-├── 📄 requirements.txt         # Python bağımlılıkları (Flask vb.)
-├── 📄 roadmap.md               # Bu yol haritası
-└── 📄 scanner.sh               # Ana başlatıcı script
 ⚠️ Yasal Uyarı
 Bu proje yalnızca EĞİTİM ve SAVUNMA amaçlıdır.
 Proje içeriği zararlı bir istismar (exploit) barındırmaz, savunma sistemlerinin nasıl çalışması gerektiğini gösteren bir ağ simülasyonudur. Yetkisiz sistemlere saldırı, TCK madde 243-245 kapsamında cezai yaptırıma tabidir.
