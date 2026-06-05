@@ -57,6 +57,7 @@ Karmaşık görünen bu zafiyet zincirinin dedektif mantığıyla tek bakışta 
 
 ## Siber Güvenlik Arayüzü
 
+<img width="1301" height="794" alt="Ekran Resmi 2026-06-05 18 23 09" src="https://github.com/user-attachments/assets/039ec70a-6a88-481f-a0f5-9b4640bee4d4" />
 
 
 :
